@@ -1,0 +1,306 @@
+/* Light theme styles */
+:host {
+  --primary-color: #3880ff;
+  --primary-shade: #3171e0;
+  --primary-tint: #4c8dff;
+  --secondary-color: #0cd1e8;
+  --tertiary-color: #7044ff;
+  --success-color: #10dc60;
+  --warning-color: #ffce00;
+  --danger-color: #f04141;
+  --background-color: #fafafa;
+  --surface-color: #ffffff;
+  --text-color: #000000;
+  --text-color-secondary: #666666;
+}
+
+/* Dark theme styles */
+:host-context(body.dark) {
+  --background-color: #121212;
+  --surface-color: #1e1e1e;
+  --text-color: #ffffff;
+  --text-color-secondary: #cccccc;
+}
+
+.app-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+.content-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.description-card {
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.description-card ion-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  background: var(--surface-color);
+}
+
+.description-text {
+  text-align: center;
+  line-height: 1.6;
+  color: var(--text-color-secondary);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.mode-toggle {
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.6s ease-out 0.1s both;
+}
+
+.mode-toggle ion-segment {
+  border-radius: 12px;
+  background: var(--surface-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.form-container ion-item {
+  --background: var(--surface-color);
+  --border-radius: 12px;
+  --border-width: 0;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1rem;
+  border-radius: 12px;
+}
+
+.form-container ion-input,
+.form-container ion-select {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+}
+
+.form-container ion-input[fill="outline"],
+.form-container ion-select[fill="outline"] {
+  --border-color: rgba(var(--ion-color-primary-rgb), 0.2);
+  --border-radius: 12px;
+  --border-width: 2px;
+}
+
+.form-container ion-input[fill="outline"]:focus-within,
+.form-container ion-select[fill="outline"]:focus-within {
+  --border-color: var(--primary-color);
+}
+
+.form-container ion-input.ion-invalid,
+.form-container ion-select.ion-invalid {
+  --border-color: var(--danger-color);
+}
+
+.error-message {
+  margin-bottom: 1rem;
+  margin-top: -0.5rem;
+  padding-left: 16px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.submit-button {
+  margin-top: 1.5rem;
+  --border-radius: 12px;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  font-weight: 600;
+  font-size: 1rem;
+  --box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.3);
+  animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
+.submit-button:not([disabled]):hover {
+  --box-shadow: 0 6px 16px rgba(var(--ion-color-primary-rgb), 0.4);
+  transform: translateY(-1px);
+  transition: all 0.2s ease-out;
+}
+
+/* Timezone Popover Styles */
+ion-popover ion-content {
+  --background: var(--surface-color);
+}
+
+ion-popover ion-searchbar {
+  --background: var(--surface-color);
+  --color: var(--text-color);
+  --placeholder-color: var(--text-color-secondary);
+  --border-radius: 12px;
+  margin: 16px;
+}
+
+ion-popover ion-item {
+  --background: var(--surface-color);
+  --color: var(--text-color);
+  --border-color: transparent;
+  transition: all 0.2s ease-out;
+}
+
+ion-popover ion-item:hover {
+  --background: rgba(var(--ion-color-primary-rgb), 0.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .content-container {
+    padding: 0.5rem;
+  }
+  
+  .app-title {
+    font-size: 1rem;
+  }
+  
+  .description-text {
+    font-size: 0.9rem;
+  }
+}
+
+/* Enhanced accessibility */
+ion-button:focus,
+ion-item:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Custom segment button styling */
+ion-segment-button {
+  --color: var(--text-color-secondary);
+  --color-checked: var(--primary-color);
+  --indicator-color: var(--primary-color);
+  --ripple-color: rgba(var(--ion-color-primary-rgb), 0.1);
+  min-height: 48px;
+  font-weight: 500;
+}
+
+/* Enhanced form field focus states */
+ion-input:focus-within,
+ion-select:focus-within {
+  --color: var(--primary-color);
+}
+
+/* Loading state styles */
+.submit-button[disabled] {
+  opacity: 0.6;
+  --box-shadow: none;
+}
+
+/* Better visual hierarchy */
+ion-toolbar {
+  --background: var(--surface-color);
+  --color: var(--text-color);
+  --border-color: transparent;
+}
+
+ion-header::after {
+  display: none;
+}
+
+/* Improved card styling */
+ion-card {
+  --background: var(--surface-color);
+  --color: var(--text-color);
+  border: 1px solid rgba(var(--ion-color-primary-rgb), 0.1);
+}
+
+/* Dark mode enhancements */
+:host-context(body.dark) ion-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:host-context(body.dark) .form-container ion-item {
+  --box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+}
+
+/* Legal links styling */
+.legal-links {
+  margin-top: 2rem;
+  padding: 1rem;
+  text-align: center;
+  border-top: 1px solid rgba(var(--ion-color-primary-rgb), 0.1);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+:host-context(body.dark) .legal-links {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.legal-text {
+  font-size: 0.8rem;
+  color: var(--text-color-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.legal-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.legal-link:hover {
+  color: var(--primary-shade);
+  text-decoration: underline;
+  transform: translateY(-1px);
+}
+
+.legal-link:active {
+  transform: translateY(0);
+  color: var(--primary-shade);
+}
+
+/* Button spinner styling */
+.button-spinner {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+/* Toast message styling */
+ion-toast {
+  --border-radius: 12px;
+  --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+:host-context(body.dark) ion-toast {
+  --background: var(--surface-color);
+  --color: var(--text-color);
+}

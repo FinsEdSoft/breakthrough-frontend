@@ -1,0 +1,261 @@
+<ion-app>
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="app-title">
+      BreakThrough: Anti-virus for Your Mind
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleTheme()" (keydown.enter)="toggleTheme()" fill="clear">
+        <ion-icon [name]="isDarkMode ? 'sunny' : 'moon'" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="content-container">
+    <!-- App Description -->
+    <div class="description-card">
+      <ion-card>
+        <ion-card-content>
+          <p class="description-text">
+            This App will not flood you with Activities or seek your attention constantly, 
+            You get only 1 message a day. If you stick till the end you might discover 
+            the answers that you need to break through.
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Mode Toggle -->
+    <div class="mode-toggle">
+      <ion-segment [value]="isRegistering ? 'register' : 'login'" (ionChange)="onSegmentChange($event)">
+        <ion-segment-button value="login">
+          <ion-label>Login</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="register">
+          <ion-label>Register</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <!-- Login Form -->
+    <div *ngIf="!isRegistering" class="form-container">
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <ion-item lines="full">
+          <ion-input
+            type="email"
+            placeholder="Email"
+            formControlName="email"
+            [class.ion-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+            fill="outline"
+            label="Email"
+            labelPlacement="floating">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
+          <ion-text color="danger">
+            <small>Please enter a valid email address</small>
+          </ion-text>
+        </div>
+
+        <ion-item lines="full">
+          <ion-input
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+            [class.ion-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+            fill="outline"
+            label="Password"
+            labelPlacement="floating">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
+          <ion-text color="danger">
+            <small>Password must be at least 6 characters long</small>
+          </ion-text>
+        </div>
+
+        <ion-button
+          expand="block"
+          type="submit"
+          [disabled]="loginForm.invalid || isLoading"
+          class="submit-button">
+          <ion-spinner *ngIf="isLoading" name="crescent" class="button-spinner"></ion-spinner>
+          {{ isLoading ? 'Logging in...' : 'Login' }}
+        </ion-button>
+      </form>
+    </div>
+
+    <!-- Registration Form -->
+    <div *ngIf="isRegistering" class="form-container">
+      <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
+        <ion-item lines="full">
+          <ion-input
+            type="text"
+            placeholder="Full Name"
+            formControlName="name"
+            [class.ion-invalid]="registrationForm.get('name')?.invalid && registrationForm.get('name')?.touched"
+            fill="outline"
+            label="Full Name"
+            labelPlacement="floating">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="registrationForm.get('name')?.invalid && registrationForm.get('name')?.touched" class="error-message">
+          <ion-text color="danger">
+            <small>Name must be at least 2 characters long</small>
+          </ion-text>
+        </div>
+
+        <ion-item lines="full">
+          <ion-input
+            type="email"
+            placeholder="Email"
+            formControlName="email"
+            [class.ion-invalid]="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched"
+            fill="outline"
+            label="Email"
+            labelPlacement="floating">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="error-message">
+          <ion-text color="danger">
+            <small>Please enter a valid email address</small>
+          </ion-text>
+        </div>
+
+        <ion-item lines="full">
+          <ion-select
+            placeholder="Select Gender"
+            formControlName="gender"
+            fill="outline"
+            label="Gender"
+            labelPlacement="floating">
+            <ion-select-option value="male">Male</ion-select-option>
+            <ion-select-option value="female">Female</ion-select-option>
+            <ion-select-option value="other">Other</ion-select-option>
+            <ion-select-option value="prefer-not-to-say">Prefer not to say</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div *ngIf="registrationForm.get('gender')?.invalid && registrationForm.get('gender')?.touched" class="error-message">
+          <ion-text color="danger">
+            <small>Please select your gender</small>
+          </ion-text>
+        </div>
+
+        <!-- Timezone Selection -->
+        <ion-item lines="full" button (click)="isTimezonePopoverOpen = true" (keydown.enter)="isTimezonePopoverOpen = true">
+          <ion-input
+            readonly
+            [value]="registrationForm.get('timezone')?.value || 'Select Timezone'"
+            fill="outline"
+            label="Timezone"
+            labelPlacement="floating">
+          </ion-input>
+          <ion-icon name="chevron-down" slot="end"></ion-icon>
+        </ion-item>
+        <div *ngIf="registrationForm.get('timezone')?.invalid && registrationForm.get('timezone')?.touched" class="error-message">
+          <ion-text color="danger">
+            <small>Please select your timezone</small>
+          </ion-text>
+        </div>
+
+        <ion-item lines="full">
+          <ion-input
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+            [class.ion-invalid]="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched"
+            fill="outline"
+            label="Password"
+            labelPlacement="floating">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="error-message">
+          <ion-text color="danger">
+            <small>Password must be at least 6 characters long</small>
+          </ion-text>
+        </div>
+
+        <ion-item lines="full">
+          <ion-input
+            type="password"
+            placeholder="Confirm Password"
+            formControlName="confirmPassword"
+            [class.ion-invalid]="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched"
+            fill="outline"
+            label="Confirm Password"
+            labelPlacement="floating">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched" class="error-message">
+          <ion-text color="danger">
+            <small>Please confirm your password</small>
+          </ion-text>
+        </div>
+        <div *ngIf="registrationForm.errors?.['passwordMismatch'] && registrationForm.get('confirmPassword')?.touched" class="error-message">
+          <ion-text color="danger">
+            <small>Passwords do not match</small>
+          </ion-text>
+        </div>
+
+        <ion-button
+          expand="block"
+          type="submit"
+          [disabled]="registrationForm.invalid || isLoading"
+          class="submit-button">
+          <ion-spinner *ngIf="isLoading" name="crescent" class="button-spinner"></ion-spinner>
+          {{ isLoading ? 'Registering...' : 'Register' }}
+        </ion-button>
+      </form>
+    </div>
+
+    <!-- Terms and Privacy Policy Links -->
+    <div class="legal-links">
+      <p class="legal-text">
+        By continuing, you agree to our
+        <a href="#" (click)="openTermsAndConditions($event)" class="legal-link">Terms & Conditions</a>
+        and
+        <a href="#" (click)="openPrivacyPolicy($event)" class="legal-link">Privacy Policy</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Timezone Popover -->
+  <ion-popover
+    [isOpen]="isTimezonePopoverOpen"
+    (didDismiss)="isTimezonePopoverOpen = false"
+    showBackdrop="true">
+    <ng-template>
+      <ion-content>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Select Timezone</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="isTimezonePopoverOpen = false" (keydown.enter)="isTimezonePopoverOpen = false" fill="clear">
+                <ion-icon name="close" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        
+        <ion-searchbar
+          placeholder="Search timezone..."
+          (ionInput)="filterTimezones($event)"
+          debounce="300">
+        </ion-searchbar>
+        
+        <ion-list>
+          <ion-item
+            *ngFor="let timezone of filteredTimezones"
+            button
+            (click)="selectTimezone(timezone)"
+            (keydown.enter)="selectTimezone(timezone)">
+            <ion-label>{{ timezone }}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+</ion-content>
+</ion-app>

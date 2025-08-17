@@ -1,0 +1,297 @@
+/* Light theme styles */
+:host {
+  --primary-color: #3880ff;
+  --primary-shade: #3171e0;
+  --primary-tint: #4c8dff;
+  --secondary-color: #0cd1e8;
+  --tertiary-color: #7044ff;
+  --success-color: #10dc60;
+  --warning-color: #ffce00;
+  --danger-color: #f04141;
+  --background-color: #fafafa;
+  --surface-color: #ffffff;
+  --text-color: #000000;
+  --text-color-secondary: #666666;
+}
+
+/* Dark theme styles */
+:host-context(body.dark) {
+  --background-color: #121212;
+  --surface-color: #1e1e1e;
+  --text-color: #ffffff;
+  --text-color-secondary: #cccccc;
+}
+
+/* App header styling */
+.app-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+/* Main container */
+.content-container {
+  --background: var(--background-color);
+  --color: var(--text-color);
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Welcome card */
+.welcome-card {
+  --background: var(--surface-color);
+  --color: var(--text-color);
+  margin-bottom: 2rem;
+  border: 1px solid rgba(var(--ion-color-primary-rgb), 0.1);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.welcome-title {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.welcome-description {
+  color: var(--text-color-secondary);
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Loading state */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.loading-text {
+  margin-top: 1rem;
+  color: var(--text-color-secondary);
+  font-size: 0.9rem;
+}
+
+/* Error state */
+.error-card {
+  --background: var(--surface-color);
+  --color: var(--text-color);
+  border: 1px solid var(--danger-color);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+}
+
+.error-content ion-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.error-text {
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+/* Messages container */
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Message cards */
+.message-card {
+  --background: var(--surface-color);
+  --color: var(--text-color);
+  border: 1px solid rgba(var(--ion-color-primary-rgb), 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  animation: slideInUp 0.6s ease-out;
+}
+
+.message-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(var(--ion-color-primary-rgb), 0.15);
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(var(--ion-color-primary-rgb), 0.1);
+}
+
+.message-order {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.message-id {
+  color: var(--text-color-secondary);
+  font-size: 0.75rem;
+  font-family: 'Courier New', monospace;
+}
+
+.message-content {
+  color: var(--text-color);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* Message images */
+.message-content :global(.message-image) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem 0;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Empty state */
+.empty-card {
+  --background: var(--surface-color);
+  --color: var(--text-color);
+  border: 1px solid rgba(var(--ion-color-primary-rgb), 0.1);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.empty-content ion-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-title {
+  color: var(--text-color);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.empty-text {
+  color: var(--text-color-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+/* Toolbar styling */
+ion-toolbar {
+  --background: var(--surface-color);
+  --color: var(--text-color);
+  --border-color: transparent;
+}
+
+ion-header::after {
+  display: none;
+}
+
+/* Dark mode enhancements */
+:host-context(body.dark) .welcome-card,
+:host-context(body.dark) .message-card,
+:host-context(body.dark) .error-card,
+:host-context(body.dark) .empty-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:host-context(body.dark) .message-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 0.5rem;
+  }
+
+  .welcome-title {
+    font-size: 1.25rem;
+  }
+
+  .message-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .message-order {
+    align-self: flex-start;
+  }
+}
+
+/* Button styling */
+ion-button {
+  --color: var(--text-color);
+  --color-hover: var(--primary-color);
+  --ripple-color: rgba(var(--ion-color-primary-rgb), 0.1);
+}
+
+/* Staggered animation for message cards */
+.message-card:nth-child(1) { animation-delay: 0.1s; }
+.message-card:nth-child(2) { animation-delay: 0.2s; }
+.message-card:nth-child(3) { animation-delay: 0.3s; }
+.message-card:nth-child(4) { animation-delay: 0.4s; }
+.message-card:nth-child(5) { animation-delay: 0.5s; }

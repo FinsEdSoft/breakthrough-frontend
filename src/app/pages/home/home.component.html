@@ -1,0 +1,86 @@
+<ion-app>
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="app-title">BreakThrough: Anti-virus for Your Mind</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="toggleTheme()" (keydown.enter)="toggleTheme()">
+        <ion-icon [name]="isDarkMode ? 'sunny' : 'moon'"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="refreshMessages()" (keydown.enter)="refreshMessages()">
+        <ion-icon name="refresh"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="logout()" (keydown.enter)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content-container">
+  <div class="page-container">
+    <!-- Welcome Section -->
+    <ion-card class="welcome-card">
+      <ion-card-content>
+        <h2 class="welcome-title">Welcome to BreakThrough{{ currentUser ? ', ' + currentUser.name : '' }}!</h2>
+        <p class="welcome-description">
+          Your daily dose of mental clarity and positivity. Here are your personalized messages to help you break through mental barriers.
+        </p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-container">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <p class="loading-text">Loading your messages...</p>
+    </div>
+
+    <!-- Error State -->
+    <ion-card *ngIf="error && !isLoading" class="error-card">
+      <ion-card-content>
+        <div class="error-content">
+          <ion-icon name="alert-circle" color="danger"></ion-icon>
+          <p class="error-text">{{ error }}</p>
+          <ion-button fill="solid" color="primary" (click)="refreshMessages()" (keydown.enter)="refreshMessages()">
+            <ion-icon name="refresh" slot="start"></ion-icon>
+            Try Again
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Messages List -->
+    <div *ngIf="messages.length > 0 && !isLoading" class="messages-container">
+      <ion-card 
+        *ngFor="let message of messages; trackBy: trackByMessageId" 
+        class="message-card"
+        [attr.data-order]="message.order">
+        <ion-card-content>
+          <div class="message-header">
+            <span class="message-order">{{ message.order }}</span>
+            <span class="message-id">{{ message.createdAt | date: 'short' }}</span>
+          </div>
+          <div 
+            class="message-content" 
+            [innerHTML]="processMessageContent(message.content)">
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Empty State -->
+    <ion-card *ngIf="messages.length === 0 && !isLoading && !error" class="empty-card">
+      <ion-card-content>
+        <div class="empty-content">
+          <ion-icon name="chatbubbles-outline" color="medium"></ion-icon>
+          <h3 class="empty-title">No Messages Yet</h3>
+          <p class="empty-text">Check back later for new inspiring messages!</p>
+          <ion-button fill="solid" color="primary" (click)="refreshMessages()" (keydown.enter)="refreshMessages()">
+            <ion-icon name="refresh" slot="start"></ion-icon>
+            Refresh
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+</ion-app>
